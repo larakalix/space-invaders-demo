@@ -1,10 +1,11 @@
-import { canvas, context, player } from "../init";
+import { canvas, context } from "../init";
 import { createImage } from "../utils/utils";
 
-import invaderImage from "./../../assets/invader-2.png";
+import invaderImage from "./../../assets/invader-3.png";
+import { InvaderProjectile } from "./projectile";
 
 export class Invader {
-    constructor() {
+    constructor({ position }) {
         this.position = {
             x: canvas.width / 2 - this.width / 2,
             y: canvas.height - this.height - 20,
@@ -17,14 +18,14 @@ export class Invader {
         const invader = createImage(invaderImage);
 
         invader.onload = () => {
-            const scale = 1;
+            const scale = 0.04;
             this.image = invader;
             this.width = invader.width * scale;
             this.height = invader.height * scale;
 
             this.position = {
-                x: canvas.width / 2 - this.width / 2,
-                y: canvas.height / 2,
+                x: position.x,
+                y: position.y,
             };
         };
     }
@@ -39,11 +40,23 @@ export class Invader {
         );
     }
 
-    update() {
+    update({ velocity }) {
         if (this.image) {
             this.draw();
-            this.position.x += this.velocity.x;
-            this.position.y += this.velocity.y;
+            this.position.x += velocity.x;
+            this.position.y += velocity.y;
         }
+    }
+
+    shoot(invaderProjectiles) {
+        invaderProjectiles.push(
+            new InvaderProjectile({
+                position: {
+                    x: this.position.x + this.width / 2,
+                    y: this.position.y,
+                },
+                velocity: { x: 0, y: 5 },
+            })
+        );
     }
 }

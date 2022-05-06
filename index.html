@@ -5,10 +5,26 @@
         <link rel="icon" type="image/svg+xml" href="favicon.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Vite App</title>
-        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="style.scss" />
     </head>
     <body>
-        <canvas></canvas>
+        <div class="board-container">
+            <div class="score">
+                <h1>Score: <span id="scoreValue">0</span></h1>
+            </div>
+
+            <canvas id="board"></canvas>
+
+            <div id="game_over_box" class="game_over_panel">
+                <h1 class="game_over_text">Game Over</h1>
+                <h2 class="game_over_text">
+                    Your score: <span id="game_over_score"></span>
+                </h2>
+                <button id="restart_btn" class="game_over_text restart_action">
+                    Restart
+                </button>
+            </div>
+        </div>
         <script type="module" src="./src/main.js"></script>
     </body>
 </html>
